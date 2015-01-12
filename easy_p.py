@@ -134,7 +134,8 @@ while ans:
 	2.Lateral Movement
 	3.Keylogging
 	4.PowerShell Meterpreter
-	5.Exit/Quit
+	5.Change Users Execution Policy
+	6.Exit/Quit
     """)
 	ans=raw_input("What would you like to do: ") 
 	if ans=="1":
@@ -146,4 +147,8 @@ while ans:
 	elif ans=="4":
 		metasploit()
 	elif ans=="5":
+		clear()
+		print 'This will permanently change the current users execution policy:'
+		print 'powershell -exec bypass -noninteractive -w hidden -Command "& {Set-ExecutionPolicy Unrestricted -Scope CurrentUser}"'
+	elif ans=="6":
 		sys.exit(0)
